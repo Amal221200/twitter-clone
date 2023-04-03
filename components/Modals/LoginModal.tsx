@@ -1,4 +1,6 @@
 import { useCallback, useState } from "react"
+import { signIn } from 'next-auth/react'
+import { toast } from 'react-hot-toast'
 import Input from "../Input"
 import Modal from "../Modal"
 import useLoginModal from "@/hooks/useLoginModal"
@@ -16,16 +18,19 @@ const LoginModal = () => {
         try {
             setIsLoading(true)
 
-            // TODO
+            await signIn('credentials', {
+                email, password
+            })
 
-
+            toast.success('Logged in')
             loginModal.onClose()
         } catch (error) {
+            toast.success('Something went wrong')
             console.log(error)
         } finally {
             setIsLoading(false)
         }
-    }, [loginModal])
+    }, [loginModal, email, password])
 
     const onToggle = useCallback(() => {
         if (isLoading) return

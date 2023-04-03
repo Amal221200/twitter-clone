@@ -1,10 +1,12 @@
 import React, { ReactFragment, ComponentProps } from "react"
 import Sidebar from "./layout/Sidebar"
 import FollowBar from "./layout/FollowBar"
+
 interface LayoutProps {
     children: React.ReactNode
 }
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+    
     return (
         <div className="h-screen bg-black">
             <div className="container h-full mx-auto xl:px-30 max-w-full">
