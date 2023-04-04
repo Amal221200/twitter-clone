@@ -22,4 +22,5 @@ const UserHero: React.FC<UserHeroProps> = ({ userId }) => {
     </div>
   )
 }
+
 export default UserHero
