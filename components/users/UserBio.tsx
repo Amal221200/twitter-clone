@@ -7,32 +7,29 @@ import Button from '../Button';
 
 
 interface UserBioProps {
-    userId?: string;
-    userData?: any
+    userId: string;
 }
 
-const UserBio: React.FC<UserBioProps> = ({ userData, userId }) => {
+const UserBio: React.FC<UserBioProps> = ({ userId }) => {
     const { data: currentUser } = useCurrentUser()
-    if (userId) {
-        const { data: fetchedUser } = useUser(userId)
-        userData = fetchedUser
-    }
+    const { data: fetchedUser } = useUser(userId)
+
 
 
     const createdAt = useMemo(() => {
-        if (!userData?.createdAt) {
+        if (!fetchedUser?.createdAt) {
             return null
         }
 
-        return format(new Date(userData?.createdAt), 'MMMM yyyy')
-    }, [userData?.createdAt])
+        return format(new Date(fetchedUser?.createdAt), 'MMMM yyyy')
+    }, [fetchedUser?.createdAt])
 
 
     return (
         <div className='border-b-[2px] border-neutral-800 pb-4'>
             <div className="flex justify-end p-2">
                 {
-                    currentUser?.id === userData?.id ? (
+                    currentUser?.id === fetchedUser?.id ? (
                         <Button secondary label='Edit' onClick={() => { }} />
                     ) : (
                         <Button onClick={() => { }} label='Follow' secondary />
@@ -42,15 +39,15 @@ const UserBio: React.FC<UserBioProps> = ({ userData, userId }) => {
             <div className="mt-8 px-4">
                 <div className="flex flex-col">
                     <p className="text-white text-2xl font-semibold">
-                        {userData?.name}
+                        {fetchedUser?.name}
                     </p>
                     <p className="font-md text-neutral-500">
-                        {userData?.username}
+                        {fetchedUser?.username}
                     </p>
                 </div>
                 <div className="flex flex-col m1-4">
                     <p className="text-white">
-                        {userData?.bio}
+                        {fetchedUser?.bio}
                     </p>
                     <div className="flex flex-row items-center gap-2 mt-4 text-neutral-500">
                         <BiCalendar /> <p>Joined {createdAt}</p>
@@ -59,15 +56,15 @@ const UserBio: React.FC<UserBioProps> = ({ userData, userId }) => {
                 <div className="flex flex-row items-center mt-4 gap-2">
                     <div className="flex flex-row items-center gap-2">
                         <p className='text-white'>
-                            {userData?.followingIds?.length}
+                            {fetchedUser?.followingIds?.length}
                         </p>
-                         <p className="text-neutral-500">Following</p>
+                        <p className="text-neutral-500">Following</p>
                     </div>
                     <div className="flex flex-row items-center gap-2">
                         <p className='text-white'>
-                            {userData?.followersCount || 0}
+                            {fetchedUser?.followersCount || 0}
                         </p>
-                         <p className="text-neutral-500">Followers</p>
+                        <p className="text-neutral-500">Followers</p>
                     </div>
                 </div>
             </div>

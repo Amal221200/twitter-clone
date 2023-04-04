@@ -21,8 +21,8 @@ const UserView = () => {
     return (
         <>
             <Header label={fethedUser?.name} showBackArrow />
-            <UserHero userData={fethedUser} userId={userId as string} />
-            <UserBio userData={fethedUser} userId={userId as string} />
+            <UserHero userId={userId as string} />
+            <UserBio userId={userId as string} />
         </>
     )
 }
