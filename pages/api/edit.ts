@@ -8,14 +8,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { currentUser } = await serverAuth(req);
-    const { name, username, bio, profileImage, coverImage } = req.body;
+    // const { currentUser } = await serverAuth(req);
+    const { name, username, bio, profileImage, coverImage, id } = req.body;
     if (!name || !username) {
       throw new Error('Missing fields');
     }
     const updatedUser = await prisma.user.update({
       where: {
-        id: currentUser.id,
+        id,
       },
       data: {
         name,
